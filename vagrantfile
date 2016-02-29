@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   ## Port Forwarding
-  [3001, 7000].each do |port|
+  [3000, 7000, 54793].each do |port|
     config.vm.network 'forwarded_port', guest: port, host: port
   end
 
