@@ -7,27 +7,25 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ## Box
   # Every Vagrant virtual environment requires a box to build off of.
-  # This one's a standard Ubuntu 12.04 LTS 32-bit box.
-  # See https://vagrantcloud.com/hashicorp/precise32
-  config.vm.box = 'hashicorp/precise32'
+  # This one's a standard Ubuntu 14.04 64-bit box.
+  # See https://atlas.hashicorp.com/ubuntu/boxes/trusty64
+  config.vm.box = 'ubuntu/trusty64'
 
   ## Bootstrapping
-  %w(timezone apt_get java lein fish).each do |script|
+  %w(timezone apt_get java lein ruby21 travis heroku fish).each do |script|
     config.vm.provision :shell, path: "scripts/#{script}.sh"
   end
 
   ## Port Forwarding
-  config.vm.network 'forwarded_port', guest: 80, host: 8080
+  [3001, 7000].each do |port|
+    config.vm.network 'forwarded_port', guest: port, host: port
+  end
 
-  ## Network
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network 'private_network', ip: '192.168.33.10'
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+  ## Networking
+  # `private_network` is needed for `nfs` file sharing
+  # `type: 'static'` should no longer be needed with `vagrant 1.6.5`
+  # see https://github.com/mitchellh/vagrant/blob/master/CHANGELOG.md#165-september-4-2014
+  config.vm.network 'private_network', type: 'dhcp'
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
