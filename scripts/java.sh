@@ -1,5 +1,11 @@
 ## Java
+# see http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html
+# and
+# see http://askubuntu.com/questions/521145/how-to-install-oracle-java-on-ubuntu-14-04
 echo 'start installing java'
+# automatically accept license
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+
 apt-add-repository ppa:webupd8team/java
 apt-get update
 apt-get install -y oracle-java8-installer
