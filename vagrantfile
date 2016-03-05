@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'ubuntu/trusty64'
 
   ## Bootstrapping
-  %w(timezone apt_get java lein ruby21 travis heroku fish).each do |script|
+  %w(locale timezone apt_get java lein ruby21 travis heroku fish).each do |script|
     config.vm.provision :shell, path: "scripts/#{script}.sh"
   end
 
