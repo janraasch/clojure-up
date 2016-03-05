@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # VirtualBox specific settings for the VM.
   config.vm.provider 'virtualbox' do |v|
     v.customize [
-        'modifyvm', :id, '--memory', 4096, '--cpus', 2, '--ioapic', 'on'
+        'modifyvm', :id, '--memory', 8192, '--cpus', 2, '--ioapic', 'on'
     ]
   end
 end
